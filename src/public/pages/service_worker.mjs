@@ -631,6 +631,9 @@ const wsMessageHandlers = {
 		const { title, options, targetUrl } = data
 		if (!title) return
 
+		// 检查通知权限
+		if (Notification.permission !== 'granted') return
+
 		if (!targetUrl) self.registration.showNotification(title, options)
 		else self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
 			let shouldShowNotification = true
